@@ -1,0 +1,37 @@
+.tweet_container {
+  background-color: #343a40;
+  border: none;
+  margin-top: 20px;
+  border-radius: 6px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.tweet_data_container {
+  margin-top: 20px;
+  margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-right: 10px;
+}
+
+.user_name {
+  align-self: flex-start;
+  color: #6c757d;
+}
+
+.user_tweet_date {
+  align-self: flex-end;
+  text-align: right;
+  color: #6c757d;
+}
+
+.user_tweet {
+  margin: 20px;
+  width: 80%;
+  color: #ffffff;
+}

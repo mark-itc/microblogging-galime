@@ -1,0 +1,50 @@
+.create_tweet_container {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  top: 100px;
+  height: 200px;
+  width: 70%;
+  border: 2px solid #cccccc;
+  border-radius: 6px;
+}
+
+textarea {
+  height: 60%;
+  width: 85%;
+  margin: 20px 20px;
+  border: none;
+  background-color: #15202b;
+  color: #cccccc;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  text-align: left;
+  resize: none;
+  overflow: hidden;
+}
+::placeholder {
+  color: #cccccc;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  text-align: left;
+}
+button {
+  background-color: #007bff;
+  padding: 8px;
+  color: white;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+}
+.long_input_message {
+  background-color: #f8d7da;
+  color: #721c24;
+  width: fit-content;
+  padding: 2px;
+  border-radius: 2px;
+}
