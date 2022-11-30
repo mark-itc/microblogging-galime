@@ -9,3 +9,15 @@ body {
   align-items: center;
   justify-content: center;
 }
+.messages_to_user {
+  background-color: #cccccc;
+  color: #15202b;
+  border: 1px solid #15202b;
+  border-radius: 3px;
+  padding: 5px;
+  position: fixed;
+  width: 50%;
+  top: 65%;
+  left: 20%;
+  text-align: center;
+}
