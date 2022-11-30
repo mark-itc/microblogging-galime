@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  word-break: break-all;
 }
 .tweet_data_container {
   margin-top: 20px;

@@ -18,10 +18,11 @@ function CreateTweet(props) {
   function onClickHandler() {
     const newTweet = {
       id: Math.random().toString(),
-      userName: "Not creative enough",
+      userName: props.userName,
       date: new Date().toString(),
       content: teeet,
     };
+    console.log("newTweet", newTweet);
 
     props.onSave(newTweet);
   }

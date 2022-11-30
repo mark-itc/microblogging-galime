@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+
 import "./App.css";
 import CreateTweet from "./components/createTweetComponents/CreateTweet";
 import TweetsList from "./components/tweetsListComponents/tweetsList";
+import Navbar from "./components/navbarComponents/Navbar";
 
 function App() {
   const teetServwrURL =
@@ -11,11 +13,16 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, serError] = useState(null);
   const [isError, setIsIsError] = useState(false);
+  const [userName, setUserName] = useState("Gali");
 
   useEffect(() => {
     fetchTweets();
+    onUserNameChange(userName);
   }, []);
 
+  function onUserNameChange(newUserName) {
+    setUserName(newUserName);
+  }
   async function fetchTweets() {
     setIsLoading(true);
     serError(null);
@@ -38,10 +45,13 @@ function App() {
   async function SaveTweetHandler(newTweet) {
     setTweetList([newTweet, ...tweetList]);
     try {
-      const response = await fetch(teetServwrURL, {
-        method: "POST",
-        body: { newTweet },
-      });
+      const response = await fetch(
+        "https://microblogging-project-999c1-default-rtdb.firebaseio.com/tweetList.json",
+        {
+          method: "POST",
+          body: JSON.stringify(newTweet),
+        }
+      );
       if (!response.ok) {
         throw new Error("Couldn't post your tweet");
       }
@@ -54,8 +64,9 @@ function App() {
 
   return (
     <div className="App">
-      <header></header>
+      <Navbar userName={tweetList.userName} onNameChange={onUserNameChange} />
       <CreateTweet
+        userName={userName}
         onSave={SaveTweetHandler}
         teetServwrURL={teetServwrURL}
         isError={isError}
