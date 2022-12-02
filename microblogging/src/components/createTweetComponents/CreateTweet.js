@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./CreateTweet.css";
 
 function CreateTweet(props) {
-  const [teeet, setTeeet] = useState();
+  const [tweet, setTeeet] = useState();
   const [isInputLong, setIsInputLong] = useState(false);
 
   function onChangeHandler(event) {
@@ -20,12 +20,13 @@ function CreateTweet(props) {
       id: Math.random().toString(),
       userName: props.userName,
       date: new Date().toString(),
-      content: teeet,
+      content: tweet,
     };
     console.log("newTweet", newTweet);
 
     props.onSave(newTweet);
   }
+  console.log("props from create", props);
 
   return (
     <div className="create_tweet_container">

@@ -5,14 +5,18 @@ import "./Profile.css";
 function Profile() {
   const [userName, setUserName] = useState("X");
 
+  function onUserNamesChange(newUserName) {
+    setUserName(newUserName);
+  }
+
   useEffect(() => {
     setUserName(localStorage.getItem("userName"));
-  }, []);
+  });
   console.log("userName from Profile", userName);
 
   return (
     <div>
-      <Navbar />
+      <Navbar onSaveName={onUserNamesChange} />
       <div className="profile_container">
         <div className="profile_headline">profile</div>
         <div className="User_headline">User Name</div>

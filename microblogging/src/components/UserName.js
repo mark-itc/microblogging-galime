@@ -11,10 +11,10 @@ function UserName(props) {
   useEffect(() => {
     setUserName(localStorage.getItem("userName"));
   }, []);
-  console.log("userName", userName);
 
   function onSubmitHandler(event) {
     event.preventDefault();
+    setUserName(userName);
     localStorage.setItem("userName", userName);
     props.onNameChange(userName);
     setisNeedToChangeName(false);
@@ -23,6 +23,7 @@ function UserName(props) {
   function onclickHandler() {
     setisNeedToChangeName(true);
   }
+  console.log("props", props);
 
   return (
     <div>

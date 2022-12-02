@@ -5,7 +5,7 @@ import CreateTweet from "./components/createTweetComponents/CreateTweet";
 import TweetsList from "./components/tweetsListComponents/tweetsList";
 import Navbar from "./components/navbarComponents/Navbar";
 
-function App() {
+function App(props) {
   const teetServwrURL =
     "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet";
 
@@ -15,14 +15,13 @@ function App() {
   const [isError, setIsIsError] = useState(false);
   const [userName, setUserName] = useState("Gali");
 
-  useEffect(() => {
-    fetchTweets();
-    onUserNameChange(userName);
-  }, []);
-
-  function onUserNameChange(newUserName) {
+  function onUserNamesChange(newUserName) {
     setUserName(newUserName);
   }
+  useEffect(() => {
+    fetchTweets();
+  }, []);
+
   async function fetchTweets() {
     setIsLoading(true);
     serError(null);
@@ -61,10 +60,11 @@ function App() {
     }
     setIsLoading(false);
   }
-
+  //
   return (
     <div className="App">
-      <Navbar userName={tweetList.userName} onNameChange={onUserNameChange} />
+      <Navbar onSaveName={onUserNamesChange} data="lalala"></Navbar>
+
       <CreateTweet
         userName={userName}
         onSave={SaveTweetHandler}
