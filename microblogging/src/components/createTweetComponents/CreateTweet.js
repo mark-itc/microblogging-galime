@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./CreateTweet.css";
 
 function CreateTweet(props) {
   const [tweet, setTeeet] = useState();
   const [isInputLong, setIsInputLong] = useState(false);
+  const [userName, setUserName] = useState(localStorage.getItem("userName"));
+
+  useEffect(() => {
+    setUserName(localStorage.getItem("userName"));
+  });
 
   function onChangeHandler(event) {
     setIsInputLong(false);
@@ -16,9 +21,10 @@ function CreateTweet(props) {
   }
 
   function onClickHandler() {
+    setUserName(localStorage.getItem("userName"));
     const newTweet = {
       id: Math.random().toString(),
-      userName: props.userName,
+      userName: userName,
       date: new Date().toString(),
       content: tweet,
     };

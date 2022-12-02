@@ -7,19 +7,17 @@ function Navbar(props) {
   const [userName, setUserName] = useState("Gali");
 
   function onUserNameChange(newUserName) {
-    console.log("props", props);
     setUserName(newUserName);
     props.onSaveName(userName);
   }
-  console.log("props", props);
 
   return (
     <div className="navbar_container">
-      <ul>
+      <ul className="ul_nav">
         <li>
           <UserName onNameChange={onUserNameChange} walla="stam"></UserName>
         </li>
-        <li className="user_name"> Hello, {userName}</li>
+        <li className="user_name_nav"> Hello, {userName}</li>
         <li>
           <a href="/">Home</a>
         </li>

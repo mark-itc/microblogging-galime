@@ -28,7 +28,7 @@ function UserName(props) {
   return (
     <div>
       {isNeedToChangeName && (
-        <form onSubmit={onSubmitHandler}>
+        <form className="ul_nav" onSubmit={onSubmitHandler}>
           <label htmlFor="user_name">User Name</label>
           <input id="user_name" onChange={onChangeHandler} required />
           <button>Change</button>

@@ -18,6 +18,7 @@ function App(props) {
   function onUserNamesChange(newUserName) {
     setUserName(newUserName);
   }
+
   useEffect(() => {
     fetchTweets();
   }, []);
