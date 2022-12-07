@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import "./UserName.css";
 
-function UserName(props) {
+function UserName() {
   const [userName, setUserName] = useState("Gali");
   const [isNeedToChangeName, setisNeedToChangeName] = useState(false);
 
@@ -16,26 +17,29 @@ function UserName(props) {
     event.preventDefault();
     setUserName(userName);
     localStorage.setItem("userName", userName);
-    props.onNameChange(userName);
     setisNeedToChangeName(false);
   }
 
   function onclickHandler() {
     setisNeedToChangeName(true);
   }
-  console.log("props", props);
 
   return (
-    <div>
+    <div className="user_container">
       {isNeedToChangeName && (
-        <form className="ul_nav" onSubmit={onSubmitHandler}>
+        <form onSubmit={onSubmitHandler}>
           <label htmlFor="user_name">User Name</label>
           <input id="user_name" onChange={onChangeHandler} required />
-          <button>Change</button>
+          <button className="change_userName_btn">Change</button>
         </form>
       )}
       {!isNeedToChangeName && (
-        <button onClick={onclickHandler}>Change User</button>
+        <div>
+          <div className="user_name_nav"> Hello, {userName}</div>
+          <button onClick={onclickHandler} className="change_userName_btn">
+            Change User
+          </button>
+        </div>
       )}
     </div>
   );

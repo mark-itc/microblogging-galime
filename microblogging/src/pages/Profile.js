@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./navbarComponents/Navbar";
 import "./Profile.css";
 
 function Profile() {
-  const [userName, setUserName] = useState("X");
-
-  function onUserNamesChange(newUserName) {
-    setUserName(newUserName);
-  }
+  const [userName, setUserName] = useState("You");
 
   useEffect(() => {
     setUserName(localStorage.getItem("userName"));
   });
-  console.log("userName from Profile", userName);
 
   return (
-    <div>
-      <Navbar onSaveName={onUserNamesChange} />
+    <div lassName="App">
       <div className="profile_container">
         <div className="profile_headline">profile</div>
         <div className="User_headline">User Name</div>
