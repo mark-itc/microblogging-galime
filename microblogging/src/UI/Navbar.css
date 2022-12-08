@@ -28,8 +28,12 @@ li {
 }
 a {
   text-decoration: none;
-  color: #ffffff;
+  color: #6c757d;
 }
 .user_name_nav {
   color: #6c757d;
+}
+
+nav a.active {
+  color: white;
 }

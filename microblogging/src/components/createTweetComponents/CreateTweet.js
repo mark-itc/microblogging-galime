@@ -23,16 +23,15 @@ function CreateTweet(props) {
   function onClickHandler() {
     setUserName(localStorage.getItem("userName"));
     const newTweet = {
-      id: Math.random().toString(),
-      userName: userName,
-      date: new Date().toString(),
       content: tweet,
+      userName: userName,
+      date: new Date().toISOString(),
+      id: Math.random().toString(),
     };
     console.log("newTweet", newTweet);
 
     props.onSave(newTweet);
   }
-  console.log("props from create", props);
 
   return (
     <div className="create_tweet_container">

@@ -43,13 +43,12 @@ function Home() {
       const response = await fetch(
         "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet",
         {
-          method: "POST",
-          body: {
-            content: "hi",
-            userName: "fwf",
-            date: "2022-12-06T13:16:37.736Z",
-            id: "rQ2LVFz6YL4gQA24hc7j",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
+          method: "POST",
+          body: JSON.stringify(newTweet),
         }
       );
       if (!response.ok) {
