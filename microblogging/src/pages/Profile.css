@@ -29,3 +29,30 @@
   border: 2px solid #cccccc;
   border-radius: 6px;
 }
+
+.user_container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+input {
+  width: 30%;
+  height: fit-content;
+  background-color: #15202B;
+  color: white;
+}
+
+.user_name_nav {
+  font-family: Roboto;
+  font-style: italic;
+}
+
+.change_userName_btn{
+  margin: none;
+  flex-direction: column;
+  position: relative;
+  top: 10px;
+  left: 400px;
+  font-size: small;
+  padding: 5px;
+}

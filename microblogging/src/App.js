@@ -3,9 +3,8 @@ import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { CreateTweetContextPropvider } from "./context/CreatTweetContext"
 
 import "./App.css";
-import "./UI/Navbar.css";
+import "./navbar.css";
 
-import UserName from "./UI/UserName";
 import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 
@@ -16,9 +15,6 @@ function App(props) {
         <div className="navbar_container">
           <nav>
             <ul className="ul_nav">
-              <li>
-                <UserName></UserName>
-              </li>
               <li>
                 <NavLink to="/">Home</NavLink>
               </li>
