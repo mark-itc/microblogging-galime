@@ -21,14 +21,14 @@ export const CreateTweetContextPropvider = ({ children }) => {
   const [state, dispatch] = useReducer(contexReducer, {
     newTweet: {
       content: "tweet",
-      userName: "userName",
+      userName: localStorage.getItem("userName"),
       date: new Date().toISOString(),
       id: Math.random().toString(),
       key: Math.random().toString(),
     },
     tweetList: " ",
     isSaved: false,
-    userName: "userName",
+    userName: localStorage.getItem("userName"),
   });
 
   const ChangeTweetState = (newTweet) => {
@@ -48,7 +48,15 @@ export const CreateTweetContextPropvider = ({ children }) => {
   };
 
   return (
-    <createTweetContext.Provider value={{...state, ChangeTweetState,ChangeList,ChangeSaveState,ChangeUserName}}>
+    <createTweetContext.Provider
+      value={{
+        ...state,
+        ChangeTweetState,
+        ChangeList,
+        ChangeSaveState,
+        ChangeUserName,
+      }}
+    >
       {children}
     </createTweetContext.Provider>
   );

@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { CreateTweetContextPropvider } from "./context/CreatTweetContext"
-
 import "./App.css";
 import "./navbar.css";
 

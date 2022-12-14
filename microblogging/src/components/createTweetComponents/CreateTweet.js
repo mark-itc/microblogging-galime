@@ -9,15 +9,13 @@ function CreateTweet(props) {
 
   const [tweet, setTeeet] = useState();
   const [isInputLong, setIsInputLong] = useState(false);
-
   function onChangeHandler(event) {
     setIsInputLong(false);
     setTeeet(event.target.value);
-
     let inputLength = event.target.value.length;
     if (inputLength > 140) {
       setIsInputLong(true);
-    }
+    } else setIsInputLong(false);
   }
 
   function onClickHandler() {
@@ -30,6 +28,7 @@ function CreateTweet(props) {
     };
     ChangeTweetState(newTweet);
     ChangeSaveState(true);
+    setTeeet("");
   }
 
   return (
@@ -37,6 +36,7 @@ function CreateTweet(props) {
       <textarea
         placeholder="What you have in mind..."
         onChange={onChangeHandler}
+        value={tweet}
       />
       {isInputLong && (
         <div className="long_input_message">

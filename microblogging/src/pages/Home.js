@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { createTweetContext } from "../context/CreatTweetContext"
+import { createTweetContext } from "../context/CreatTweetContext";
 import CreateTweet from "../components/createTweetComponents/CreateTweet";
 import TweetsList from "../components/tweetsListComponents/tweetsList";
+import { projectFirestore } from "../firebase/config";
 
 function Home() {
   const teetServwrURL =
@@ -16,55 +17,41 @@ function Home() {
   } = useContext(createTweetContext);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, serError] = useState(null);
+  const [error, setError] = useState(null);
   const [isError, setIsIsError] = useState(false);
 
   useEffect(() => {
-    fetchTweets();
+    projectFirestore.collection("tweets").onSnapshot(
+      (snapshot) => {
+        if (snapshot.empty) {
+          setError("Where are the tweets??");
+          setIsLoading(false);
+        } else {
+          let results = [];
+          snapshot.docs.forEach((doc) => {
+            results.push({ id: doc.id, ...doc.data() });
+          });
+          ChangeList(results);
+          setIsLoading(false);
+        }
+      },
+      (error) => {
+        setError(error.message);
+        setIsLoading(false);
+      }
+    );
   }, []);
 
   useEffect(() => {
     if (isSaved) SaveTweetHandler();
   }, [isSaved]);
 
-  async function fetchTweets() {
-    setIsLoading(true);
-    serError(null);
-
-    try {
-      const response = await fetch(teetServwrURL);
-
-      if (!response.ok) {
-        throw new Error("Somthing went wrong");
-      }
-      const data = await response.json();
-      ChangeList(data.tweets);
-    } catch (error) {
-      serError(error.message);
-      setIsIsError(true);
-    }
-    setIsLoading(false);
-  }
-
   async function SaveTweetHandler() {
-    ChangeList([newTweet, ...tweetList]);
     try {
-      const response = await fetch(
-        "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet",
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-          body: JSON.stringify(newTweet),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Couldn't post your tweet");
-      }
+      ChangeList([newTweet, ...tweetList]);
+      await projectFirestore.collection("tweets").add(newTweet);
     } catch (error) {
-      serError(error.message);
+      setError(error.message);
       setIsIsError(true);
     }
     setIsLoading(false);
