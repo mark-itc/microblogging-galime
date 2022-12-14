@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import { createTweetContext } from "../../context/CreatTweetContext";
 import "./tweetsList.css";
-
 import Tweet from "./Tweet";
-function TweetsList(props) {
-  const wteetData = [...props.items];
+
+function TweetsList() {
+  const { tweetList } = useContext(createTweetContext);
+  const tweetData = [...tweetList];
 
   return (
     <div className="tweets_list_container">
-      {wteetData.map((tweetList) => (
+      {tweetData.map((tweetList) => (
         <Tweet
-          key={tweetList.id}
+          key={tweetList.key}
           id={tweetList.id}
           userName={tweetList.userName}
-          date={tweetList.date.toLocaleString("en-US")}
+          date={tweetList.date}
           userTweet={tweetList.content}
         />
       ))}

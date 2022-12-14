@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect, useContext } from "react";
+import { createTweetContext } from "../context/CreatTweetContext"
 import CreateTweet from "../components/createTweetComponents/CreateTweet";
 import TweetsList from "../components/tweetsListComponents/tweetsList";
+
 function Home() {
   const teetServwrURL =
     "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet";
 
-  const [tweetList, setTweetList] = useState("");
+  const {
+    newTweet,
+    tweetList,
+    ChangeList,
+    isSaved,
+    ChangeSaveState,
+  } = useContext(createTweetContext);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, serError] = useState(null);
   const [isError, setIsIsError] = useState(false);
-  const [userName, setUserName] = useState("You");
 
   useEffect(() => {
     fetchTweets();
   }, []);
+
   useEffect(() => {
-    setUserName(localStorage.getItem("userName"));
-  });
+    if (isSaved) SaveTweetHandler();
+  }, [isSaved]);
+
   async function fetchTweets() {
     setIsLoading(true);
     serError(null);
@@ -29,7 +38,7 @@ function Home() {
         throw new Error("Somthing went wrong");
       }
       const data = await response.json();
-      setTweetList(data.tweets);
+      ChangeList(data.tweets);
     } catch (error) {
       serError(error.message);
       setIsIsError(true);
@@ -37,8 +46,8 @@ function Home() {
     setIsLoading(false);
   }
 
-  async function SaveTweetHandler(newTweet) {
-    setTweetList([newTweet, ...tweetList]);
+  async function SaveTweetHandler() {
+    ChangeList([newTweet, ...tweetList]);
     try {
       const response = await fetch(
         "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet",
@@ -59,17 +68,13 @@ function Home() {
       setIsIsError(true);
     }
     setIsLoading(false);
+    ChangeSaveState(false);
   }
   //
   return (
     <div className="App">
-      <CreateTweet
-        userName={userName}
-        onSave={SaveTweetHandler}
-        teetServwrURL={teetServwrURL}
-        isError={isError}
-      />
-      {!isLoading && <TweetsList items={tweetList} />}
+      <CreateTweet isError={isError} />
+      {!isLoading && <TweetsList />}
       {isLoading && <div className="messages_to_user">Loading...</div>}
       {!isLoading && error && <div className="messages_to_user">{error}</div>}
     </div>

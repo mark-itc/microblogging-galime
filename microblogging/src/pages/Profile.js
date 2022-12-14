@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
+import { createTweetContext } from "../context/CreatTweetContext";
+
 import "./Profile.css";
 
 function Profile() {
-  const [userName, setUserName] = useState("You");
+  const { userName, ChangeUserName } = useContext(createTweetContext);
 
   useEffect(() => {
-    setUserName(localStorage.getItem("userName"));
-  });
+    ChangeUserName(userName);
+  }, [userName]);
 
   return (
     <div lassName="App">

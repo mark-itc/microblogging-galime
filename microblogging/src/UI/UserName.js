@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { createTweetContext } from "../context/CreatTweetContext";
 import "./UserName.css";
 
 function UserName() {
-  const [userName, setUserName] = useState("Gali");
+  const { userName, ChangeUserName } = useContext(createTweetContext);
   const [isNeedToChangeName, setisNeedToChangeName] = useState(false);
 
   function onChangeHandler(event) {
-    setUserName(event.target.value);
+    ChangeUserName(event.target.value);
   }
 
   useEffect(() => {
-    setUserName(localStorage.getItem("userName"));
+    ChangeUserName(localStorage.getItem("userName"));
   }, []);
 
   function onSubmitHandler(event) {
     event.preventDefault();
-    setUserName(userName);
+    ChangeUserName(userName);
     localStorage.setItem("userName", userName);
     setisNeedToChangeName(false);
   }

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { createTweetContext } from "../../context/CreatTweetContext";
 import "./CreateTweet.css";
 
 function CreateTweet(props) {
+  const { ChangeTweetState, ChangeSaveState, userName } = useContext(
+    createTweetContext
+  );
+
   const [tweet, setTeeet] = useState();
   const [isInputLong, setIsInputLong] = useState(false);
-  const [userName, setUserName] = useState(localStorage.getItem("userName"));
-
-  useEffect(() => {
-    setUserName(localStorage.getItem("userName"));
-  });
 
   function onChangeHandler(event) {
     setIsInputLong(false);
@@ -21,16 +21,15 @@ function CreateTweet(props) {
   }
 
   function onClickHandler() {
-    setUserName(localStorage.getItem("userName"));
     const newTweet = {
       content: tweet,
       userName: userName,
       date: new Date().toISOString(),
       id: Math.random().toString(),
+      key: Math.random().toString(),
     };
-    console.log("newTweet", newTweet);
-
-    props.onSave(newTweet);
+    ChangeTweetState(newTweet);
+    ChangeSaveState(true);
   }
 
   return (

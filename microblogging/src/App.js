@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { CreateTweetContextPropvider } from "./context/CreatTweetContext"
 
 import "./App.css";
 import "./UI/Navbar.css";
@@ -10,7 +11,7 @@ import Home from "./pages/Home";
 
 function App(props) {
   return (
-    <div className="App">
+    <CreateTweetContextPropvider className="App">
       <BrowserRouter>
         <div className="navbar_container">
           <nav>
@@ -33,7 +34,7 @@ function App(props) {
         </Routes>
       </BrowserRouter>
       ;
-    </div>
+    </CreateTweetContextPropvider>
   );
 }
 
