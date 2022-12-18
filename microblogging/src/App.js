@@ -13,15 +13,30 @@ function App(props) {
 
   return (
     <CreateTweetContextPropvider className="App">
+      {!isAuthReady && <h1>Loading...</h1>}
       {isAuthReady && (
         <BrowserRouter>
           <Navbar />
           <Routes>
-            {user && <Route path="/" element={<Home />} />}
-            {!user && <Route path="/" element={<Login />} />}
-            <Route path="/Profile" element={<Profile />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/singup" element={<Singup />} />
+            {user && (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/login" element={<Home />} />
+                <Route path="/singup" element={<Home />} />
+                <Route path="/*" element={<Home />} />
+              </>
+            )}
+
+            {!user && (
+              <>
+                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Login />} />
+                <Route path="/singup" element={<Singup />} />
+                <Route path="/*" element={<Login />} />
+              </>
+            )}
           </Routes>
         </BrowserRouter>
       )}
