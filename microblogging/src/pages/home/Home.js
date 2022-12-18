@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { createTweetContext } from "../context/CreatTweetContext";
-import CreateTweet from "../components/createTweetComponents/CreateTweet";
-import TweetsList from "../components/tweetsListComponents/tweetsList";
-import { projectFirestore } from "../firebase/config";
+import { createTweetContext } from "../../context/CreatTweetContext";
+import CreateTweet from "../../components/createTweetComponents/CreateTweet";
+import TweetsList from "../../components/tweetsListComponents/tweetsList";
+import { projectFirestore } from "../../firebase/config";
 
 function Home() {
   const teetServwrURL =
@@ -16,7 +16,7 @@ function Home() {
     ChangeSaveState,
   } = useContext(createTweetContext);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isError, setIsIsError] = useState(false);
 
@@ -47,6 +47,8 @@ function Home() {
   }, [isSaved]);
 
   async function SaveTweetHandler() {
+    setIsIsError(true);
+
     try {
       ChangeList([newTweet, ...tweetList]);
       await projectFirestore.collection("tweets").add(newTweet);
@@ -60,6 +62,7 @@ function Home() {
   //
   return (
     <div className="App">
+      <div className="first"></div>
       <CreateTweet isError={isError} />
       {!isLoading && <TweetsList />}
       {isLoading && <div className="messages_to_user">Loading...</div>}

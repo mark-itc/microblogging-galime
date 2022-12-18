@@ -1,31 +1,26 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import { CreateTweetContextPropvider } from "./context/CreatTweetContext"
+import React, { useContext } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CreateTweetContextPropvider } from "./context/CreatTweetContext";
 import "./App.css";
-import "./navbar.css";
-
-import Profile from "./pages/Profile";
-import Home from "./pages/Home";
-
+import Navbar from "./components/Navbar";
+import Profile from "./pages/profile/Profile";
+import Home from "./pages/home/Home";
+import Login from "./pages/login/Login";
+import Singup from "./pages/singup/Singup";
+import { authContext } from "./context/AuthContext";
 function App(props) {
+  const { user } = useContext(authContext);
+
   return (
     <CreateTweetContextPropvider className="App">
       <BrowserRouter>
-        <div className="navbar_container">
-          <nav>
-            <ul className="ul_nav">
-              <li>
-                <NavLink to="/">Home</NavLink>
-              </li>
-              <li>
-                <NavLink to="/Profile">Profile</NavLink>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          {user && <Route path="/" element={<Home />} />}
+          {!user && <Route path="/" element={<Login />} />}
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/singup" element={<Singup />} />
         </Routes>
       </BrowserRouter>
       ;

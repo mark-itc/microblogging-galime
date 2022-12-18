@@ -1,0 +1,25 @@
+.profile-form {
+  max-width: 360px;
+  margin: 60px auto;
+  padding: 20px;
+  color: aliceblue;
+}
+
+.profile-form lable {
+  display: block;
+  margin: 30px auto;
+}
+
+.profile-form span {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.profile-form input {
+  padding: 8px 6px;
+  font-size: 1em;
+  width: 100%;
+  border: 2px solid #cccccc;
+  border-radius: 6px;
+  margin-bottom: 5px;
+}

@@ -22,3 +22,10 @@ body {
   left: 20%;
   text-align: center;
 }
+.first {
+  z-index: 2;
+  position: fixed;
+  top: 50%;
+  background-color: aliceblue;
+  color: #15202b;
+}
