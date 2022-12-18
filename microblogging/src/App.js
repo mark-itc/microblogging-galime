@@ -1,18 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CreateTweetContextPropvider } from "./context/CreatTweetContext";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/profile/Profile";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Singup from "./pages/singup/Singup";
-import { authContext } from "./context/AuthContext";
+import { useAuthContext } from "./hooks/useAuthContext";
+
 function App(props) {
-  const { user, isAuthReady } = useContext(authContext);
+  const { user, isAuthReady } = useAuthContext();
 
   return (
-    <CreateTweetContextPropvider className="App">
+    <div className="app">
       {!isAuthReady && <h1>Loading...</h1>}
       {isAuthReady && (
         <BrowserRouter>
@@ -40,7 +40,7 @@ function App(props) {
           </Routes>
         </BrowserRouter>
       )}
-    </CreateTweetContextPropvider>
+    </div>
   );
 }
 

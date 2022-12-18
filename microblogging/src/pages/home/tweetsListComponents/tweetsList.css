@@ -1,3 +1,11 @@
+.tweets_list_container {
+  box-sizing: border-box;
+
+  position: relative;
+  top: 150px;
+  width: 100%;
+  border-radius: 6px;
+}
 .tweet_container {
   background-color: #343a40;
   border: none;
@@ -22,12 +30,13 @@
 
 .user_name {
   align-self: flex-start;
+  justify-items: left;
   color: #6c757d;
 }
 
 .user_tweet_date {
+  justify-items: right;
   align-self: flex-end;
-  text-align: right;
   color: #6c757d;
 }
 

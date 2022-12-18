@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { projectAuth } from "../firebase/config";
+import {
+  projectAuth,
+  projectStorage,
+  projectFirestore,
+} from "../firebase/config";
 import { useAuthContext } from "./useAuthContext";
 
 export const useSingup = () => {
@@ -8,7 +12,7 @@ export const useSingup = () => {
   const { dispatch } = useAuthContext();
   const [isCancelled, setIsCancelled] = useState(false);
 
-  const singup = async (email, password, displayName) => {
+  const singup = async (email, password, displayName, picture) => {
     setError(null);
     setIsPending(true);
 
@@ -21,7 +25,20 @@ export const useSingup = () => {
       if (!res) {
         throw new Error("could not complete singup");
       }
-      await res.user.updateProfile({ displayName });
+
+      const uploadPath = "profilePictures/${res.user.uid}/${picture.name}";
+      const img = await projectStorage.ref(uploadPath).put(picture);
+      const imgURL = await img.ref.getDownloadURL();
+
+      await res.user.updateProfile({ displayName, photoURL: imgURL });
+
+      await projectFirestore
+        .collection("users")
+        .doc(res.user.uid)
+        .set({
+          displayName,
+          photoURL: imgURL,
+        });
 
       dispatch({ type: "LOG_IN", payload: res.user });
 

@@ -7,10 +7,12 @@ export default function Singup() {
   const [password, setPassword] = useState("");
   const [displayName, setDesplayName] = useState("");
   const { singup, isPending, error } = useSingup();
+  const [picture, setPicture] = useState(null);
+  const [pictureError, setPictureError] = useState(null);
 
   function handelSubmit(e) {
     e.preventDefault();
-    singup(email, password, displayName);
+    singup(email, password, displayName, picture);
   }
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -18,6 +20,28 @@ export default function Singup() {
   function handlePasswordChange(e) {
     setPassword(e.target.value);
   }
+
+  function handleFileChange(e) {
+    setPicture(null);
+    let selectedFile = e.target.files[0];
+    console.log("selectedFile", selectedFile);
+    if (!selectedFile) {
+      setPictureError("please select a file");
+      return;
+    }
+    if (!selectedFile.type.includes("image")) {
+      setPictureError("please select an image type file");
+      return;
+    }
+    if (selectedFile.size > 100000) {
+      setPictureError("selected image is over 100kb");
+      return;
+    }
+    setPictureError(null);
+    setPicture(selectedFile);
+    console.log("picture updated");
+  }
+
   return (
     <form className={styles["singup-form"]} onSubmit={handelSubmit}>
       <h2>Singup</h2>
@@ -45,8 +69,13 @@ export default function Singup() {
           value={displayName}
         />
       </label>
+      <label>
+        <span>Profile Picture:</span>
+        <input type="file" onChange={handleFileChange} />
+      </label>
       {!isPending && <button className="btn">Singup</button>}
       {error && <p>{error}</p>}
+      {pictureError && <p>{pictureError}</p>}
       {isPending && (
         <button className="btn" disabled>
           loading

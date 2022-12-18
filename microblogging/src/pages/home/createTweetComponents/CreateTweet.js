@@ -1,14 +1,13 @@
-import React, { useState, useContext } from "react";
-import { createTweetContext } from "../../context/CreatTweetContext";
+import React, { useState, useEffect } from "react";
 import "./CreateTweet.css";
+import { useFirestore } from "../../../hooks/useFirestore";
 
-function CreateTweet(props) {
-  const { ChangeTweetState, ChangeSaveState, userName } = useContext(
-    createTweetContext
-  );
+function CreateTweet({ isError, uid }) {
+  const { addDocument, response } = useFirestore("tweets");
 
   const [tweet, setTeeet] = useState();
   const [isInputLong, setIsInputLong] = useState(false);
+
   function onChangeHandler(event) {
     setIsInputLong(false);
     setTeeet(event.target.value);
@@ -21,15 +20,17 @@ function CreateTweet(props) {
   function onClickHandler() {
     const newTweet = {
       content: tweet,
-      userName: userName,
+      uid: uid,
       date: new Date().toISOString(),
-      id: Math.random().toString(),
-      key: Math.random().toString(),
     };
-    ChangeTweetState(newTweet);
-    ChangeSaveState(true);
-    setTeeet("");
+    addDocument(newTweet);
   }
+
+  useEffect(() => {
+    if (response.success) {
+      setTeeet("");
+    }
+  }, [response.success]);
 
   return (
     <div className="create_tweet_container">
@@ -46,7 +47,7 @@ function CreateTweet(props) {
       <button
         type="submit"
         onClick={onClickHandler}
-        disabled={isInputLong || props.isError}
+        disabled={isInputLong || isError}
       >
         Tweet
       </button>

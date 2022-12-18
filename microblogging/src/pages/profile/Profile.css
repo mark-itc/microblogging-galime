@@ -38,7 +38,7 @@
 input {
   width: 30%;
   height: fit-content;
-  background-color: #15202B;
+  background-color: #15202b;
   color: white;
 }
 
@@ -47,7 +47,7 @@ input {
   font-style: italic;
 }
 
-.change_userName_btn{
+.change_userName_btn {
   margin: none;
   flex-direction: column;
   position: relative;
@@ -55,4 +55,10 @@ input {
   left: 400px;
   font-size: small;
   padding: 5px;
+}
+.profile picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
 }

@@ -22,4 +22,13 @@
   border: 2px solid #cccccc;
   border-radius: 6px;
   margin-bottom: 5px;
+  background-color: #15202b;
+  color: white;
+}
+.profile-form img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 20px auto;
 }
